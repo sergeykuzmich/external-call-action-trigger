@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  e2e-tests:
+  execution:
     name: execution
     runs-on: ubuntu-latest
     steps:
@@ -14,6 +14,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Execute run
+        env:
+          CYPRESS_MESSAGE: ${{ github.event.client_payload.message }}
         run: npx cypress run
       - uses: actions/upload-artifact@v4
         name: Upload artifacts
