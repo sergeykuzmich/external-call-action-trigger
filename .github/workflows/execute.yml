@@ -1,4 +1,4 @@
-name: Lamda like call
+name: behaves as lambda
 
 on:
   repository_dispatch:
@@ -6,16 +6,17 @@ on:
 
 jobs:
   e2e-tests:
-    name: E2E Tests
+    name: execution
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Dependencies
+        name: Checkout code
+      - name: Install dependencies
         run: npm ci
-      - name: Execute Tests
+      - name: Execute run
         run: npx cypress run
       - uses: actions/upload-artifact@v4
-        if: failure()
+        name: Upload artifacts
         with:
           name: videos
           path: cypress/videos
