@@ -1,0 +1,21 @@
+name: Lamda like call
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Execute Tests
+        run: npx cypress run
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: videos
+          path: cypress/videos
